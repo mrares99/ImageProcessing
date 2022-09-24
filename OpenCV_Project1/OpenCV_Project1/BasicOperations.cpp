@@ -5,11 +5,12 @@
 cv::Mat read_image(const char* path)
 {
 	try {
-		cv::Mat temp = cv::imread(path, cv::IMREAD_UNCHANGED);
+		cv::Mat temp = cv::imread(path);
 		if (temp.data == NULL) {
 			throw MyException("Image not loaded.", __LINE__, "BasicOperations.cpp",
 				"read_image", "The image was not loaded. Check for possible problems.");
 		}
+		return temp;
 	}
 	catch (MyException& ex) {
 		ex.print_fields();
