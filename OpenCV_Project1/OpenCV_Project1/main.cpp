@@ -2,15 +2,11 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <iostream>
+#include "MyException.h"
 using namespace cv;
 
 int main()
 {
-    cv::Mat img = cv::imread("D:/C/ImageProcessing/Images/Lena512.png");
-    namedWindow("First OpenCV Application", WINDOW_AUTOSIZE);
-    cv::imshow("First OpenCV Application", img);
-    cv::moveWindow("First OpenCV Application", 0, 45);
-    cv::waitKey(0);
-    cv::destroyAllWindows();
+
     return 0;
 }

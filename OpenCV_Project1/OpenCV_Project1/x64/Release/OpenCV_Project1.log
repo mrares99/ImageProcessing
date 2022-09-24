@@ -1,7 +1,9 @@
-﻿  main.cpp
+﻿  BasicOperations.cpp
+  MyException.cpp
+  main.cpp
   Generating code
-  67 of 67 functions (100.0%) were compiled.
-    66 functions were new in current compilation
+  3 of 30 functions (10.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  OpenCV_Project1.vcxproj -> D:\ImageProcessing\OpenCV_Project1\x64\Release\OpenCV_Project1.exe
+  OpenCV_Project1.vcxproj -> D:\ImageProcessingProjects\OpenCV_Project1\x64\Release\OpenCV_Project1.exe

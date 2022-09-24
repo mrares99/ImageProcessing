@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\ImageProcessing\OpenCV_Project1\x64\Release\OpenCV_Project1.exe</FullPath>
+      <FullPath>D:\ImageProcessingProjects\OpenCV_Project1\x64\Release\OpenCV_Project1.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
