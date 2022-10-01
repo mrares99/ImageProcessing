@@ -1,0 +1,9 @@
+# Ignore all
+*
+
+# Unignore directories
+!*/
+
+# Unignore source code files
+!source/**/*.c
+!source/**/*.h
