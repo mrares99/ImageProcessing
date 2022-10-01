@@ -4,11 +4,21 @@
 #include <iostream>
 #include "MyException.h"
 #include "BasicOperations.h"
+#include "PointerOperations.h"
 using namespace cv;
 
 int main()
 {
-    cv::Mat inputImage = read_image("D:/ImageProcessingProjects/Images/LennaRGB512.png");
-    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Output.png", inputImage);
+    int numberOfElements = 0;
+    printf("Enter the number of elements: ");
+    scanf_s("%d", &numberOfElements);
+    int *arrayOfElements = allocate_memory_for_1D_array(numberOfElements);
+    populate_array(arrayOfElements, numberOfElements);
+    print_array_values(arrayOfElements, numberOfElements);
+    printf("\nStranger things:");
+    print_array_values_the_strange_way(arrayOfElements, numberOfElements);
+
+    add_two_numbers(2, 4);
+    add_three_numbers(2, 2, 3);
     return 0;
 }
