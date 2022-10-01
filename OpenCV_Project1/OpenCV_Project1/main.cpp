@@ -5,20 +5,33 @@
 #include "MyException.h"
 #include "BasicOperations.h"
 #include "PointerOperations.h"
+#include "ComplexOperations.h"
+#include "Image.h"
+#include "GrayscaleImage.h"
+#include "ColorImage.h"
+
 using namespace cv;
 
 int main()
 {
-    int numberOfElements = 0;
-    printf("Enter the number of elements: ");
-    scanf_s("%d", &numberOfElements);
-    int *arrayOfElements = allocate_memory_for_1D_array(numberOfElements);
-    populate_array(arrayOfElements, numberOfElements);
-    print_array_values(arrayOfElements, numberOfElements);
-    printf("\nStranger things:");
-    print_array_values_the_strange_way(arrayOfElements, numberOfElements);
+    cv::Mat inputImage = read_image("D:/ImageProcessingProjects/Images/LennaRGB512.png");
+    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Output.png", inputImage);
+    cv::Mat grayscale = create_grasyscale_from_color_image(inputImage);
+    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Grayscale.png", grayscale);
+    cv::Mat negativeImageFromGrasyscale = create_negative_image_from_grasyscale(grayscale);
+    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Negative.png", negativeImageFromGrasyscale);
+    cv::Mat changeGrayscaleLevels = change_gray_levels_for_grayscale_image(grayscale, 90);
+    write_image("D:/ImageProcessingProjects/Images/LenaRGB512ChangeLevels.png", changeGrayscaleLevels);
+    
+    GrayscaleImage grayscaleImage{ grayscale };
+    grayscaleImage.transform_to_binary(150);
+    cv::imshow("Binary Transformation", grayscaleImage.getImage());
 
-    add_two_numbers(2, 4);
-    add_three_numbers(2, 2, 3);
+    ColorImage colorImage{ inputImage };
+    colorImage.transform_RGB_to_HSV();
+    cv::imshow("RGB to HSV transformation", colorImage.getImage());
+
+
+    waitKey(0);
     return 0;
 }
