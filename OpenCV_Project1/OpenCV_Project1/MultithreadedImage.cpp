@@ -35,18 +35,29 @@ void MultithreadedImage::setColorImage(cv::Mat inputImage) {
 	}
 }
 
-void MultithreadedImage::operator()(int colorChannel) {
+void MultithreadedImage::operator()(int colorChannel, bool isExtraction) {
 	if (colorChannel < 0 || colorChannel > 2) {
 		printf("Wrong color channel. Choose more careful.");
 		exit(EXIT_FAILURE);
 	}
-	for (int i = 0; i < colorImage.rows; ++i) {
-		for (int j = 0; j < colorImage.cols; ++j) {
-			arrayOfColorChannels[colorChannel].at<cv::Vec3b>(i, j)[colorChannel] =
-				colorImage.at<cv::Vec3b>(i, j)[colorChannel];
+	if (isExtraction == true) {
+		for (int i = 0; i < colorImage.rows; ++i) {
+			for (int j = 0; j < colorImage.cols; ++j) {
+				arrayOfColorChannels[colorChannel].at<cv::Vec3b>(i, j)[colorChannel] =
+					colorImage.at<cv::Vec3b>(i, j)[colorChannel];
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < colorImage.rows; ++i) {
+			for (int j = 0; j < colorImage.cols; ++j) {
+				colorImage.at<cv::Vec3b>(i, j)[colorChannel] =
+					arrayOfColorChannels[colorChannel].at<cv::Vec3b>(i, j)[colorChannel];
+			}
 		}
 	}
 }
+
 
 cv::Mat MultithreadedImage::getRedChannel() {
 	return arrayOfColorChannels[2];
