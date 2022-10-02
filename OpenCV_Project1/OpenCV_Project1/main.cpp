@@ -6,31 +6,37 @@
 #include "BasicOperations.h"
 #include "PointerOperations.h"
 #include "ComplexOperations.h"
-#include "Image.h"
-#include "GrayscaleImage.h"
-#include "ColorImage.h"
+#include "MultithreadedImage.h"
+#include <thread>
 
 using namespace cv;
 
 int main()
 {
     cv::Mat inputImage = read_image("D:/ImageProcessingProjects/Images/LennaRGB512.png");
-    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Output.png", inputImage);
-    cv::Mat grayscale = create_grasyscale_from_color_image(inputImage);
-    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Grayscale.png", grayscale);
-    cv::Mat negativeImageFromGrasyscale = create_negative_image_from_grasyscale(grayscale);
-    write_image("D:/ImageProcessingProjects/Images/LenaRGB512Negative.png", negativeImageFromGrasyscale);
-    cv::Mat changeGrayscaleLevels = change_gray_levels_for_grayscale_image(grayscale, 90);
-    write_image("D:/ImageProcessingProjects/Images/LenaRGB512ChangeLevels.png", changeGrayscaleLevels);
+    MultithreadedImage multithreadedImage{inputImage};
+    //multithreadedImage.setColorImage(inputImage);
+
+    //cv::Mat readImage = multithreadedImage.getColorImage();
+    //imshow("readImage", readImage);
+    //The image is read correctly.
+
+
+    std::thread th1(multithreadedImage, 0);
+    std::thread th2(multithreadedImage, 1);
+    std::thread th3(multithreadedImage, 2);
     
-    GrayscaleImage grayscaleImage{ grayscale };
-    grayscaleImage.transform_to_binary(150);
-    cv::imshow("Binary Transformation", grayscaleImage.getImage());
+    th1.join();
+    th2.join();
+    th3.join();
+    
+    cv::Mat redChannel = multithreadedImage.getRedChannel();
+    cv::Mat greenChannel = multithreadedImage.getGreenChannel();
+    cv::Mat blueChannel = multithreadedImage.getBlueChannel();
 
-    ColorImage colorImage{ inputImage };
-    colorImage.transform_RGB_to_HSV();
-    cv::imshow("RGB to HSV transformation", colorImage.getImage());
-
+    cv::imshow("Red channel", redChannel);
+    cv::imshow("Green channel", greenChannel);
+    cv::imshow("Blue channel", blueChannel);
 
     waitKey(0);
     return 0;
