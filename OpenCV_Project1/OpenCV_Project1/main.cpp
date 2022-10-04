@@ -11,14 +11,15 @@
 
 using namespace cv;
 
-int function(int variable) {
-    variable = 0;
-    return variable++;
+void do_something(int* var) {
+    var = (int*)malloc(sizeof(int));
+    *var = 12;
 }
 
 int main()
 {
-    int variable = -1;
-    std::cout << function(variable);
+    int variable = 10;
+    do_something(&variable);
+    std::cout << variable;
     return 0;
 }
